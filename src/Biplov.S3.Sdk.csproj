@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Authors>Biplov KC</Authors>
+		<OutputType>Library</OutputType>
+		<Title>S3 Sdk</Title>
+		<PackageId>Biplov.S3.Sdk</PackageId>
+		<PackageProjectUrl>https://github.com/biplovkc/event-bus-rabbitmq</PackageProjectUrl>
+		<PackageTags>Biplov;BiplovKC;S3;Sdk;OneOf;BackBlaze</PackageTags>
+		<AssemblyName>Biplov.S3.Sdk</AssemblyName>
+		<RootNameSpace>Biplov.S3.Sdk</RootNameSpace>
+		<TargetFramework>net6.0</TargetFramework>
+		<Description>S3 based sdk using OneOf</Description>
+		<LangVersion>latest</LangVersion>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<DebugSymbols>true</DebugSymbols>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+		<!-- Embed source files that are not tracked by the source control manager in the PDB -->
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+		<!-- Recommended: Embed symbols containing Source Link in the main file (exe/dll) -->
+		<DebugType>embedded</DebugType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="." />
+	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="3.7.106" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
+    <PackageReference Include="OneOf" Version="3.0.243" />
+  </ItemGroup>
+
+</Project>
