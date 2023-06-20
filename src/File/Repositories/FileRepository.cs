@@ -1,4 +1,9 @@
-﻿using Amazon.S3;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
+using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Biplov.S3.Sdk.File.Responses;

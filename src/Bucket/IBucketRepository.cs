@@ -1,4 +1,7 @@
-﻿using Biplov.S3.Sdk.Bucket.Responses;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Biplov.S3.Sdk.Bucket.Responses;
 using OneOf.Types;
 using OneOf;
 

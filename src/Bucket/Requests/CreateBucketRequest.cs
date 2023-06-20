@@ -1,4 +1,6 @@
-﻿namespace Biplov.S3.Sdk.Bucket.Requests;
+﻿using System.Collections.Generic;
+
+namespace Biplov.S3.Sdk.Bucket.Requests;
 
 public record CreateBucketRequest
 (
