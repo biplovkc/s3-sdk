@@ -1,4 +1,4 @@
-# Rabbit MQ Event Bus
+# SDK for S3 based services
 
 <h3 align="center">
 
