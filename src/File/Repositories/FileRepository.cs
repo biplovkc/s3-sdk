@@ -11,17 +11,20 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using OneOf.Types;
 using OneOf;
+using Serilog;
 
 namespace Biplov.S3.Sdk.File.Repositories;
 
 public class FileRepository : IFileRepository
 {
     private readonly IAmazonS3 _s3Client;
+    private readonly ILogger _logger;
     private readonly FileOptions _options;
 
-    public FileRepository(IAmazonS3 s3Client, IOptions<FileOptions> options)
+    public FileRepository(IAmazonS3 s3Client, IOptions<FileOptions> options, ILogger logger)
     {
         _s3Client = s3Client ?? throw new ArgumentNullException(nameof(s3Client));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _ = options ?? throw new ArgumentNullException(nameof(options));
         _options = options.Value;
 
@@ -66,6 +69,7 @@ public class FileRepository : IFileRepository
         }
         catch (Exception e)
         {
+            _logger.Error(e, "Error uploading file with fileId - {FileId} and fileName - {FileName}", fileId, formFile.FileName);
             return e;
         }
 
@@ -103,6 +107,7 @@ public class FileRepository : IFileRepository
         }
         catch (Exception ex)
         {
+            _logger.Error(ex, "Error listing files inside folder - {FolderName} for bucket - {BucketName}", folderName, bucketName);
             return ex;
         }
 
@@ -127,6 +132,7 @@ public class FileRepository : IFileRepository
         }
         catch (Exception e)
         {
+            _logger.Error(e, "Error fetching file by id - {Key} of bucket - {Bucket}", key, bucketName);
             return e;
         }
 

@@ -9,16 +9,19 @@ using OneOf.Types;
 using OneOf;
 using System.Net;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Biplov.S3.Sdk.Bucket;
 
 internal class BucketRepository : IBucketRepository
 {
     private readonly IAmazonS3 _s3Client;
+    private readonly ILogger _logger;
 
-    public BucketRepository(IAmazonS3 s3Client)
+    public BucketRepository(IAmazonS3 s3Client, ILogger logger)
     {
         _s3Client = s3Client ?? throw new ArgumentNullException(nameof(s3Client));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
     public async ValueTask<OneOf<bool, Exception>> DoesS3BucketExistAsync(string bucketName)
@@ -29,6 +32,7 @@ internal class BucketRepository : IBucketRepository
         }
         catch (Exception e)
         {
+            _logger.Error(e, "Error checking bucket existence for bucket - {Bucket}", bucketName);
             return e;
         }
     }
@@ -51,6 +55,7 @@ internal class BucketRepository : IBucketRepository
         }
         catch (Exception e)
         {
+            _logger.Error(e, "Error creating bucket - {Bucket}", bucketName);
             return e;
         }
     }
@@ -64,6 +69,7 @@ internal class BucketRepository : IBucketRepository
         }
         catch (Exception e)
         {
+            _logger.Error(e, "Error listing buckets");
             return e;
         }
     }
