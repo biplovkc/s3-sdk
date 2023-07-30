@@ -44,7 +44,7 @@ public class FileRepository : IFileRepository
                 InputStream = formFile.OpenReadStream(),
                 Key = $"{folderName}/{fileId}",
                 BucketName = _options.BucketName,
-                CannedACL = S3CannedACL.NoACL,
+                CannedACL = S3CannedACL.PublicRead
             };
             
             if (isTagsSupported)
